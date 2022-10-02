@@ -47,14 +47,14 @@ module Assembly() {
   color("green") {
     CardsHolders();
     translate([0, 100 + 69 + 2* 49, 0]) Enclosures();
-    translate([212, 100, 0]) SpecialEnclosures();
+    translate([212, 100 + 96, 0]) SpecialEnclosures();
   }
   color("blue") {
-    translate([0, 100, 0]) Universities();
-    translate([131, 100, 0]) Venom();
-    translate([0, 100 + 69, 0]) Credits();
+    translate([0, 100 + 96 + 2, 0]) Universities();
+    translate([131, 100 + 96 + 2, 0]) Venom();
+    translate([0, 100, 17]) Credits();
   }
-  translate([0, 100, 20]) PlayerBoxes();
+  translate([0, 100, 0]) PlayerBoxes();
 }
 
 Assembly();
