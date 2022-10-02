@@ -1,55 +1,60 @@
 v_dist = 0;
 
-module CardsHolders() {
-  for (i = [0:3]) {
-    translate([i * (72 + v_dist), 0, 0]) import("5266169/AN_card_holder.stl");
+module CardsHolders(n = 4) {
+  translate([42.377, -31.94, 0]) {
+    for (i = [0:n - 1]) {
+      translate([i * (72 + v_dist), 0, 0]) import("5266169/AN_card_holder.stl");
+    }
   }
 }
 
 module Universities() {
-  translate([24.55, 166.5 + v_dist, 0]) rotate([0, 0, 90])  import("5266169/AN_universities.stl");
+  translate([66.94, 34.71, 0]) rotate([0, 0, 90])  import("5266169/AN_universities.stl");
 }
 
 module Venom() {
-  translate([123.6 + v_dist, 175.9 + v_dist, 0]) import("5266169/AN_bonus+venom.stl");
+  translate([35, 44, 0]) import("5266169/AN_bonus+venom.stl");
 }
 
-module Credits() {
-  for (i = [0:1]) {
-    translate([61, 212.3 + i * (49 + v_dist) + 2 * v_dist, 0]) import("5266169/AN_credits.stl");
+module Credits(n = 2) {
+  for (i = [0:n - 1]) {
+    translate([103.37, 11.5 + i * (49 + v_dist), 0]) import("5266169/AN_credits.stl");
   }
 }
 
-module Enclosures() {
-  for (i = [0:1]) {
-    translate([38.64, 323.7 + i * (43 + v_dist) + 4 * v_dist, 0]) import("5266169/AN_enclosures.stl");
+module Enclosures(n = 2) {
+  translate([81, 24.9, 0]) {
+    for (i = [0:n - 1]) {
+      translate([0, i * (43 + v_dist), 0]) import("5266169/AN_enclosures.stl");
+    }
   }
 }
 
 module SpecialEnclosures() {
-  translate([208.4 + 3 * v_dist, 197.1 + v_dist, 0]) import("5266169/AN_specials_2.stl");
+  translate([38.8, 65.2, 0]) import("5266169/AN_specials_2.stl");
 }
 
-module PlayerBoxes() {
-  for (i = [0:3]) {
-    translate([i * (72 + v_dist), 100 + v_dist, 20 + v_dist]) {
+module PlayerBoxes(n = 4) {
+  for (i = [0:n-1]) {
+    translate([i * (72 + v_dist), 0, 0]) {
       import("5543151/player_cover_smaller.stl");
       translate([36, 57.25, -9]) rotate([0, 180, 0]) import("5543151/player_pieces.stl");
     }
   }
 }
 
-PlayerBoxes();
-
-translate([42.377, -31.94, 0]) {
+module Assembly() {
   color("green") {
     CardsHolders();
-    Enclosures();
-    SpecialEnclosures();
+    translate([0, 100 + 69 + 2* 49, 0]) Enclosures();
+    translate([212, 100, 0]) SpecialEnclosures();
   }
   color("blue") {
-    Universities();
-    Venom();
-    Credits();
+    translate([0, 100, 0]) Universities();
+    translate([131, 100, 0]) Venom();
+    translate([0, 100 + 69, 0]) Credits();
   }
+  translate([0, 100, 20]) PlayerBoxes();
 }
+
+Assembly();
