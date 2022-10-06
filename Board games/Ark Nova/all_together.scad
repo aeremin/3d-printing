@@ -13,7 +13,7 @@ module Assembly() {
     translate([131, 3 * v_dist + 100 + 96 + 2, 0]) Venom();
     translate([0, 1 * v_dist + 100, 1 * v_dist + 17]) Credits(v_dist);
   }
-  translate([0, 1 * v_dist + 100, 0]) PlayerBoxes();
+  translate([0, 1 * v_dist + 100, 0]) PlayerBoxes(4);
 }
 
 Assembly();
