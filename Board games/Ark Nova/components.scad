@@ -29,7 +29,7 @@ module Enclosures(d, n = 2) {
 }
 
 module SpecialEnclosures() {
-  translate([38.8, 65.2, 0]) import("5266169/AN_specials_2.stl");
+  import("special_enclosures.stl");
 }
 
 module PlayerBoxes(d, n = 4) {
