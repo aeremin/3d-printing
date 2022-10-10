@@ -30,6 +30,11 @@ module Enclosures(d, n = 2) {
 
 module SpecialEnclosures() {
   import("special_enclosures.stl");
+
+}
+
+module KiosksAndPavillions() {
+  import("kiosks_and_pavillions.stl");
 }
 
 module PlayerBoxes(d, n = 4) {

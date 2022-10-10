@@ -14,6 +14,13 @@ module Assembly() {
     translate([0, 1 * v_dist + 100, 1 * v_dist + 17]) Credits(v_dist);
   }
   translate([0, 1 * v_dist + 100, 0]) PlayerBoxes(v_dist);
+  
+  color("green") {
+    translate([212 + 76, 1 * v_dist + 100, 1 * v_dist + 17]) rotate([0, 0, 90]) {
+        KiosksAndPavillions();
+        translate([96 / 2, 0, 0]) KiosksAndPavillions();
+    }
+  }
 }
 
 Assembly();
