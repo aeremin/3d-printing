@@ -1,6 +1,7 @@
 add_subdirectory(7\ Wonders\ Duel)
 add_subdirectory(Ark\ Nova)
 add_subdirectory(Cascadia)
+add_subdirectory(Eclipse)
 add_subdirectory(Great\ Western\ Trail)
 add_subdirectory(Root)
 add_subdirectory(Sleeping\ Gods)
