@@ -9,3 +9,4 @@ cmake_policy(SET CMP0135 NEW)
 
 add_subdirectory(Board\ games)
 add_subdirectory(Painting)
+add_subdirectory(Sports)
