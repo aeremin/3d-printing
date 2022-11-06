@@ -1,4 +1,5 @@
 add_subdirectory(Ark\ Nova)
+add_subdirectory(Cascadia)
 add_subdirectory(Great\ Western\ Trail)
 add_subdirectory(Sleeping\ Gods)
 add_subdirectory(Twilight\ Struggle)
