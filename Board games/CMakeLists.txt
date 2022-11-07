@@ -1,5 +1,6 @@
 add_subdirectory(7\ Wonders\ Duel)
 add_subdirectory(Ark\ Nova)
+add_subdirectory(Arkham\ Horror\ LCG)
 add_subdirectory(Cascadia)
 add_subdirectory(Eclipse)
 add_subdirectory(Great\ Western\ Trail)
