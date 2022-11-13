@@ -1,4 +1,5 @@
 add_subdirectory(Acceleration\ Measurement)
+add_subdirectory(Camera\ 2020\ Mount)
 add_subdirectory(Filament\ Guide)
 add_subdirectory(Raspberry\ 2020\ Mount)
 add_subdirectory(Ivar\ Spool\ Holder)
