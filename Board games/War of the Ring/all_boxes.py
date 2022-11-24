@@ -72,7 +72,7 @@ cq.exporters.export(dwarves, "dwarves.stl")
 
 shadow_units_box_width = 128
 section_names_shadow = ("Elite", "Regular")
-sauron_section_sizes = [32, 57]
+sauron_section_sizes = [38, 57]
 isengard_section_sizes = [38, 32]
 easterlings_section_sizes = [55, 38]
 
