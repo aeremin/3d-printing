@@ -28,17 +28,20 @@ def sectioned_box(width, lengths, height, wall_thickness=1.2, floor_thickness=1.
     return b
 
 
-def sectioned_box_with_text(name, width, sections, height, font = "Arial", text_depth=0.4, wall_thickness=1.2, floor_thickness=1.2):
+def sectioned_box_with_text(name, width, sections, height, font = "Arial", font_size = 14, text_depth=0.4, wall_thickness=1.2, floor_thickness=1.2):
     total_length = sum([l for _, l in sections]) + (len(sections) + 1) * wall_thickness
     b = simple_box(width, total_length, height, wall_thickness, floor_thickness)
     offset =  - total_length / 2
     for section_name, l in sections:
         offset = offset + l + wall_thickness
         wall = cq.Workplane(origin=(0, offset, 0)).box(width, wall_thickness, height, centered=(True, False, True))
-        text = cq.Workplane(origin=(0, offset - l / 2, -height / 2 + floor_thickness)).text(txt=section_name, fontsize=14, distance=-text_depth, font=font)
-        b = b.union(wall).cut(text)
+        b = b.union(wall)
+        if section_name:
+            text = cq.Workplane(origin=(0, offset - l / 2, -height / 2 + floor_thickness)).text(txt=section_name, fontsize=font_size, distance=-text_depth, font=font)
+            b = b.cut(text)
 
-    b = b.faces(">X").workplane().text(txt=name, fontsize=14, distance=-text_depth, font=font)
+    if name:
+        b = b.faces(">X").workplane().text(txt=name, fontsize=font_size, distance=-text_depth, font=font)
     return b
 
 
