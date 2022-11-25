@@ -74,7 +74,7 @@ shadow_units_box_width = 128
 section_names_shadow = ("Elite", "Regular")
 sauron_section_sizes = [38, 57]
 isengard_section_sizes = [38, 32]
-easterlings_section_sizes = [55, 38]
+easterlings_section_sizes = [53, 40]
 
 total_shadow_boxes_length = sum(sauron_section_sizes) + sum(isengard_section_sizes) + sum(easterlings_section_sizes) + \
                             1.2 * (len(sauron_section_sizes) + 1 + len(isengard_section_sizes) + 1 + len(easterlings_section_sizes) + 1)
@@ -92,6 +92,6 @@ isengard_units = boxes.sectioned_box_with_text("Isengard", shadow_units_box_widt
 cq.exporters.export(isengard_units, "isengard_units.stl")
 
 easterlings_units = boxes.sectioned_box_with_text("Southrons\nEasterlings", shadow_units_box_width,
-                                                  list(zip(section_names_shadow, [48, 38])),
+                                                  list(zip(section_names_shadow, easterlings_section_sizes)),
                                                   unit_box_height, font=font, font_size=11)
 cq.exporters.export(easterlings_units, "easterlings_units.stl")
