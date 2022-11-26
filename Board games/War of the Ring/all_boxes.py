@@ -19,6 +19,46 @@ elves_rohan_box_width = 88
 gondor_northmen_box_sections = (35, 39, 41)
 gondor_northmen_box_width = 96
 
+def cards_box():
+    section_width = 132
+    wall_thickness = 1.2
+    horizontal_section_length = 71
+    horizontal_section_height = 58
+    vertical_section_length = 34
+    vertical_section_height = horizontal_section_height + 20
+    cutter_fillet_radius = 4
+
+    bbox = cq.Workplane().box(2 * section_width + 3 * wall_thickness,
+                              vertical_section_length + horizontal_section_length + 3 * wall_thickness,
+                              vertical_section_height, centered=False)
+    for i in range(2):
+        for j in range(2):
+            c = cq.Workplane(origin=(wall_thickness + i * (section_width + wall_thickness),
+                                     wall_thickness + j * (horizontal_section_length + wall_thickness),
+                                     wall_thickness)).box(section_width,
+                                                          horizontal_section_length if j == 0 else vertical_section_length,
+                                                          vertical_section_height - wall_thickness, centered=False)
+            bbox = bbox.cut(c)
+    cutter = cq.Workplane(origin=(0, 0, 58)).box(2 * section_width + 3 * wall_thickness,
+                                                 horizontal_section_length + wall_thickness,
+                                                 vertical_section_height - horizontal_section_height, centered=False)
+    bbox = bbox.cut(cutter)
+    cutter_shape = cq.Workplane("XZ").polyline([(0, -25), (30, -25), (35, 0), (45, 0), (45, 10), (0, 10)]).mirrorY()\
+        .extrude(-1000).edges("|Y").fillet(cutter_fillet_radius)
+    bbox = bbox.cut(cutter_shape.translate((wall_thickness + section_width / 2, horizontal_section_length, vertical_section_height)))
+    bbox = bbox.cut(cutter_shape.translate((2 * wall_thickness + 3 * section_width / 2, horizontal_section_length, vertical_section_height)))
+
+    cutter_shape = cq.Workplane("XZ").polyline(
+        [(0, -horizontal_section_height), (20, -horizontal_section_height), (25, 0), (35, 0), (35, 10), (0, 10)]).mirrorY()\
+        .extrude(-wall_thickness).faces(">Z[1]").edges("|Y").fillet(cutter_fillet_radius)
+    cutter_shape = cutter_shape.union(cq.Workplane().cylinder(2 * horizontal_section_height, 20))
+    bbox = bbox.cut(cutter_shape.translate((wall_thickness + section_width / 2, 0, horizontal_section_height)))
+    bbox = bbox.cut(cutter_shape.translate((2 * wall_thickness + 3 * section_width / 2, 0, horizontal_section_height)))
+
+    return bbox
+
+cq.exporters.export(cards_box(), "cards.stl")
+
 elves = boxes.sectioned_box_with_text("Elves", elves_rohan_box_width,
                                       list(zip(section_names_free_people, elves_rohan_box_sections)),
                                       unit_box_height, font=font)
