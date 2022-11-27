@@ -119,7 +119,7 @@ easterlings_section_sizes = [53, 40]
 total_shadow_boxes_length = sum(sauron_section_sizes) + sum(isengard_section_sizes) + sum(easterlings_section_sizes) + \
                             1.2 * (len(sauron_section_sizes) + 1 + len(isengard_section_sizes) + 1 + len(easterlings_section_sizes) + 1)
 
-print("Total length of shadow boxes: %d/270" % total_shadow_boxes_length)
+print("Total length of shadow boxes: %.2f/270" % total_shadow_boxes_length)
 
 sauron_units = boxes.sectioned_box_with_text("Sauron", shadow_units_box_width,
                                              list(zip(section_names_shadow, sauron_section_sizes)),
@@ -135,3 +135,22 @@ easterlings_units = boxes.sectioned_box_with_text("Southrons\nEasterlings", shad
                                                   list(zip(section_names_shadow, easterlings_section_sizes)),
                                                   unit_box_height, font=font, font_size=11)
 cq.exporters.export(easterlings_units, "easterlings_units.stl")
+
+shadow_factions_section_names = ("Spiders", "Dunledings", "Corsairs")
+shadow_factions_section_sizes = (41, 40.4, 63)
+free_people_section_names = ("Ents", "Dead Men", "Eagles")
+free_people_factions_section_sizes = (46.4, 35, 63)
+
+shadow_factions = boxes.sectioned_box_with_text("", gondor_northmen_box_width,
+                                                list(zip(shadow_factions_section_names, shadow_factions_section_sizes)),
+                                                unit_box_height, font=font)
+cq.exporters.export(shadow_factions, "shadow_factions.stl")
+
+free_peoples_factions = boxes.sectioned_box_with_text("", gondor_northmen_box_width,
+                                                list(zip(free_people_section_names, free_people_factions_section_sizes)),
+                                                unit_box_height, font=font)
+cq.exporters.export(free_peoples_factions, "free_peoples_factions.stl")
+
+total_factions_layer_length = sum(gondor_northmen_box_sections) + sum(shadow_factions_section_sizes) + \
+                            1.2 * (len(gondor_northmen_box_sections) + 1 + len(shadow_factions_section_sizes) + 1)
+print("Total length of faction layer: %.2f/270" % total_factions_layer_length)
