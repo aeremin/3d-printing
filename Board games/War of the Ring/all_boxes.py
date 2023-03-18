@@ -22,19 +22,21 @@ gondor_northmen_box_width = 96
 def cards_box():
     section_width = 132
     wall_thickness = 1.2
-    horizontal_section_length = 71
+    horizontal_section_length = 76.8
     horizontal_section_height = 58
-    vertical_section_length = 34
+    vertical_section_length = 17.6
     vertical_section_height = horizontal_section_height + 20
     cutter_fillet_radius = 4
 
+    total_length = horizontal_section_length + 2 * vertical_section_length + 4 * wall_thickness
+    print("Card box total length: %.1f" % total_length)
     bbox = cq.Workplane().box(2 * section_width + 3 * wall_thickness,
-                              vertical_section_length + horizontal_section_length + 3 * wall_thickness,
+                              total_length,
                               vertical_section_height, centered=False)
     for i in range(2):
-        for j in range(2):
+        for j in range(3):
             c = cq.Workplane(origin=(wall_thickness + i * (section_width + wall_thickness),
-                                     wall_thickness + j * (horizontal_section_length + wall_thickness),
+                                     wall_thickness + j * wall_thickness + [0, horizontal_section_length, horizontal_section_length + vertical_section_length][j],
                                      wall_thickness)).box(section_width,
                                                           horizontal_section_length if j == 0 else vertical_section_length,
                                                           vertical_section_height - wall_thickness, centered=False)
