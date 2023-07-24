@@ -1,8 +1,8 @@
 # https://www.thingiverse.com/thing:539300
 FetchContent_Declare(
   thingiverse_539300
-  URL      https://cdn.thingiverse.com/tv-zip/539300
-  URL_HASH MD5=ebb9780dbe58d3c05c56db6647922dfb
+  URL      https://tv-zip.thingiverse.com/zip/539300
+  URL_HASH MD5=ec77ab57cd307ddc5a4ae4c4a5eb34e1
 )
 
 FetchContent_MakeAvailable(thingiverse_539300)

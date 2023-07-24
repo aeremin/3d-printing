@@ -1,8 +1,8 @@
-# https://www.thingiverse.com/thing:3531122
+# https://www.thingiverse.com/thing:3884393
 FetchContent_Declare(
-  thingiverse_3531122
-  URL      https://cdn.thingiverse.com/tv-zip/3531122
-  URL_HASH MD5=01c75708caaa0b24ee1c31a3e2fdc02f
+  thingiverse_3884393
+  URL      https://tv-zip.thingiverse.com/zip/3884393
+  URL_HASH MD5=c42467907093767286bf15aedf2d6ca7
 )
 
-FetchContent_MakeAvailable(thingiverse_3531122)
+FetchContent_MakeAvailable(thingiverse_3884393)
