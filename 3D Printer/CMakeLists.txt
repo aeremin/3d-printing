@@ -3,3 +3,5 @@ add_subdirectory(Camera\ 2020\ Mount)
 add_subdirectory(Filament\ Guide)
 add_subdirectory(Raspberry\ 2020\ Mount)
 add_subdirectory(Ivar\ Spool\ Holder)
+add_subdirectory(Top\ Panel\ Holder)
+
