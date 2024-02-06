@@ -4,4 +4,4 @@ add_subdirectory(Filament\ Guide)
 add_subdirectory(Raspberry\ 2020\ Mount)
 add_subdirectory(Ivar\ Spool\ Holder)
 add_subdirectory(Top\ Panel\ Holder)
-
+add_subdirectory(External\ Spool\ Holder)
