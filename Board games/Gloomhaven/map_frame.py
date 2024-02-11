@@ -38,7 +38,7 @@ def dovetail_joint(depth, small_width, large_width, thickness):
 
 hanging_bolt_shaft_diameter = 4
 hanging_bolt_head_diameter = 8
-hanging_hole_offset = 10
+hanging_hole_offset = 10.5
 
 def add_hanging_hole(w: cq.Workplane) -> cq.Workplane:
     return w.pushPoints([(0, 0)]).hole(hanging_bolt_shaft_diameter, 2) \
