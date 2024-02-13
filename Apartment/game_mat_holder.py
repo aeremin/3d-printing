@@ -2,8 +2,8 @@ import cadquery as cq
 
 def roll_holder(roll_diameter: float, has_bottom: bool = True):
     roll_radius = roll_diameter / 2
-    height = 54
-    wall_thickness = 1
+    height = 55
+    wall_thickness = 1.4
     bottom_thickness = 3 if has_bottom else 0
 
     tape_width = 20
@@ -29,8 +29,22 @@ def roll_holder(roll_diameter: float, has_bottom: bool = True):
             .hole(roll_diameter, height - bottom_thickness)
     )
 
-cq.exporters.export(roll_holder(54, has_bottom=True), 'frostpunk_bottom.stl')
-cq.exporters.export(roll_holder(54, has_bottom=False), 'frostpunk_top.stl')
+def cap(roll_diameter: float):
+    height = 10
+    wall_thickness = 1.4
+    bottom_thickness = 1
+    return (cq.Workplane()
+            .cylinder(height, roll_diameter / 2 + wall_thickness)
+            .faces(">Z").workplane()
+            .hole(roll_diameter, height - bottom_thickness)
+    )
 
-cq.exporters.export(roll_holder(80, has_bottom=True), 'nemesis_playermat_bottom.stl')
-cq.exporters.export(roll_holder(80, has_bottom=False), 'nemesis_playermat_top.stl')
+frostpunk_mat_diameter = 54
+cq.exporters.export(roll_holder(frostpunk_mat_diameter, has_bottom=True), 'frostpunk_bottom.stl')
+cq.exporters.export(roll_holder(frostpunk_mat_diameter, has_bottom=False), 'frostpunk_middle.stl')
+cq.exporters.export(cap(frostpunk_mat_diameter), 'frostpunk_top.stl')
+
+nemesis_player_mat_diameter = 92
+cq.exporters.export(roll_holder(nemesis_player_mat_diameter, has_bottom=True), 'nemesis_playermat_bottom.stl')
+cq.exporters.export(roll_holder(nemesis_player_mat_diameter, has_bottom=False), 'nemesis_playermat_middle.stl')
+cq.exporters.export(cap(nemesis_player_mat_diameter), 'nemesis_top.stl')
