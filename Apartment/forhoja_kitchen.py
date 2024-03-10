@@ -1,15 +1,7 @@
 import cadquery as cq
-from typing import Tuple, List
 
-class PolylineFromOffsets:
-    points: List[Tuple[float, float]]
+from Libraries.polyline_util import PolylineFromOffsets
 
-    def __init__(self):
-        self.points = [(0, 0)]
-
-    def add_point(self, x: float, y: float):
-        last_x, last_y = self.points[-1]
-        self.points.append((last_x + x, last_y + y))
 
 def stopper():
     plank_w = 15.4

@@ -3,6 +3,8 @@ from typing import Tuple, List
 import cadquery as cq
 import math
 
+from Libraries.polyline_util import PolylineFromOffsets
+
 # Parameters
 half_size = 280
 map_thickness = 3
@@ -48,18 +50,6 @@ def add_hanging_hole(w: cq.Workplane) -> cq.Workplane:
 if 'show_object' not in globals():
     def show_object(*args, **kwargs):
         pass
-
-
-class PolylineFromOffsets:
-    points: List[Tuple[float, float]]
-
-    def __init__(self):
-        self.points = [(0, 0)]
-
-    def add_point(self, x: float, y: float):
-        last_x, last_y = self.points[-1]
-        self.points.append((last_x + x, last_y + y))
-
 
 l = PolylineFromOffsets()
 l.add_point(inner_half_size, 0)

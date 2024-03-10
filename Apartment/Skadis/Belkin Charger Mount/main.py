@@ -2,6 +2,8 @@ from typing import Tuple, List
 
 import cadquery as cq
 
+from Libraries.polyline_util import PolylineFromOffsets
+
 charger_height = 80.4
 charger_thickness = 30.6
 charger_peg_length = 30
@@ -15,15 +17,6 @@ rear_downtick_length = 12
 distance_to_leg = 6.5
 leg_diameter = 8
 leg_thickness = 1.5
-
-class PolylineFromOffsets:
-    points: List[Tuple[float, float]]
-
-    def __init__(self):
-        self.points = [(0, 0)]
-    def add_point(self, x: float, y: float):
-        last_x, last_y = self.points[-1]
-        self.points.append((last_x + x, last_y + y))
 
 l = PolylineFromOffsets()
 l.add_point(charger_thickness + 1.5 * overall_thickness, 0)
