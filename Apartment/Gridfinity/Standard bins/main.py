@@ -9,3 +9,4 @@ sizes = [
 
 for l, w, h in sizes:
     GridfinityBox(l, w, h, scoops=True, labels=True, holes=True, unsupported_holes=True).save_stl_file()
+    GridfinityBox(l, w, h, scoops=True, holes=True, unsupported_holes=True).save_stl_file()
