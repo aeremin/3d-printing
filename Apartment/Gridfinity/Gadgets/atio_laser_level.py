@@ -6,7 +6,7 @@ import cadquery as cq
 total_height = 70
 
 first_layer_height = 7
-first_layer_radius = 89 / 2
+first_layer_radius = 90 / 2
 
 second_layer_height = 4
 second_layer_radius = 116 / 2
