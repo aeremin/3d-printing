@@ -58,11 +58,15 @@ def hettich_hinge_jig():
   )
   return half.union(half.mirror("XZ"))
 
+def hettich_hole_probe():
+  return (cq.Workplane().box(20, 20, 2)
+          .faces(">Z").cylinder(11.5, (15 - drill_hole_tolerance_horizontal_side) / 2, centered=(True, True, False)))
+
 # https://www.jumbo.ch/de/bauen-renovieren/holz/holzplatten--holzzuschnitt/holzspanplatten/spanplatten/oecoplan-span-eiche-19-mm/p/3463392
 # or
 # https://www.jumbo.ch/de/bauen-renovieren/holz/holzplatten--holzzuschnitt/holzspanplatten/spanplatten/oecoplan-span-buche-19-mm/p/3463393
 cq.exporters.export(hettich_cam_fitting_jig(wood_thickness = 19), 'hettich_cam_fitting_jig_19.stl')
-
-
 cq.exporters.export(hettich_cam_fitting_jig(wood_thickness = 40), 'hettich_cam_fitting_jig_40.stl')
 cq.exporters.export(hettich_hinge_jig(), 'hettich_hinge_jig.stl')
+
+cq.exporters.export(hettich_hole_probe(), 'hettich_hole_probe.stl')
