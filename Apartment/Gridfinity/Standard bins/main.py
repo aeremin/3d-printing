@@ -8,9 +8,14 @@ GridfinityBox(1, 1, 2, length_div=1, scoops=True, labels=True, holes=True, unsup
 sizes = [
     (1, 1, 6),
     (1, 2, 6),
+    (2, 1, 3),
+    (2, 1, 4),
+    (2, 1, 5),
     (2, 1, 6),
     (2, 2, 6),
     (1, 1, 3),
+    (1, 1, 4),
+    (1, 1, 5),
     (1, 1, 2),
     (1, 3, 3),
 ]
