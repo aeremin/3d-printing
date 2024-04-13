@@ -1,3 +1,4 @@
+
 import cadquery as cq
 
 MAX_PCB_LENGTH = 100
@@ -10,11 +11,12 @@ CABLE_PASS_AREA_FULL_HOLE_LENGTH = 15
 
 DEBUGGER_AREA_WIDTH = 55
 
-TOTAL_WIDTH = MAX_PCB_WIDTH + CABLE_PASS_AREA_WIDTH + DEBUGGER_AREA_WIDTH 
+TOTAL_WIDTH = MAX_PCB_WIDTH + CABLE_PASS_AREA_WIDTH + DEBUGGER_AREA_WIDTH
 TOTAL_LENGTH = MAX_PCB_LENGTH
 
 THICKNESS = 2
 PIN_HEIGHT = 5
+
 
 def _rectFromTwoCorners(self, p1, p3):
     x1, y1 = p1
@@ -22,6 +24,7 @@ def _rectFromTwoCorners(self, p1, p3):
     p2 = (x1, y2)
     p4 = (x2, y1)
     return self.segment(p1, p2).segment(p3).segment(p4).segment(p1)
+
 
 cq.Sketch.rectFromTwoCorners = _rectFromTwoCorners
 
@@ -51,19 +54,21 @@ def render_bmp_board(w: cq.Workplane) -> cq.Workplane:
     mount = (cq.Sketch().push([(158, 137), (158, 94), (200, 137), (200, 94)])
              .circle(1.9 / 2)
              )
-    
+
     holes = (cq.Sketch()
              .rectFromTwoCorners((177, 92), (196, 144))
              .rectFromTwoCorners((161, 131), (172, 137))
              .rectFromTwoCorners((158, 140), (174, 143))
              .assemble()
-             )    
+             )
 
     return (w.transformed(offset=(-155, 148, 0), rotate=(180, 0, 0)).tag("local")
             .placeSketch(outline).cutBlind(THICKNESS / 2)
-            .workplaneFromTagged("local").transformed(offset=(0, 0, THICKNESS / 2)).placeSketch(mount).extrude(-PIN_HEIGHT)
+            .workplaneFromTagged("local").transformed(offset=(0, 0, THICKNESS / 2)).placeSketch(mount).extrude(
+        -PIN_HEIGHT)
             .workplaneFromTagged("local").placeSketch(holes).cutThruAll()
             )
+
 
 def render_lock(w: cq.Workplane) -> cq.Workplane:
     outline = (cq.Sketch()
@@ -90,7 +95,10 @@ def render_lock(w: cq.Workplane) -> cq.Workplane:
     return (w.workplaneFromTagged("top")
             .transformed(offset=(-104.5 + 3, 150.5 + 2, 0), rotate=(180, 0, 0)).tag("local")
             .placeSketch(outline).cutBlind(THICKNESS / 2)
-            .workplaneFromTagged("local").transformed(offset=(0, 0, THICKNESS / 2)).placeSketch(mount).extrude(-PIN_HEIGHT)
+            .workplaneFromTagged("local").transformed(offset=(0, 0, THICKNESS / 2)).placeSketch(mount).extrude(
+        -PIN_HEIGHT)
+            .workplaneFromTagged("local").placeSketch(holes).cutThruAll()
+            )
             .workplaneFromTagged("local").placeSketch(holes).cutThruAll()
             )
 
