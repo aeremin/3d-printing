@@ -99,11 +99,85 @@ def render_lock(w: cq.Workplane) -> cq.Workplane:
         -PIN_HEIGHT)
             .workplaneFromTagged("local").placeSketch(holes).cutThruAll()
             )
+
+
+def render_firefly(w: cq.Workplane) -> cq.Workplane:
+    outline = (cq.Sketch()
+               .segment((124, 80), (176, 80))
+               .arc((191.1789, 82.4632), (204.8, 89.6))
+               .arc((206, 92), (204.8, 94.4))
+               .arc((191.1789, 101.5368), (176, 104))
+               .segment((124, 104))
+               .arc((108.8211, 101.5368), (95.2, 94.4))
+               .arc((94, 92), (95.2, 89.6))
+               .arc((108.8211, 82.4632), (124, 80))
+               .assemble()
+               )
+
+    mount = (cq.Sketch().push([(178.6, 101.8), (178.6, 82.2), (121.4, 82.2), (121.4, 101.8)])
+             .circle(2.1 / 2)
+             )
+
+    holes = (cq.Sketch()
+             .rectFromTwoCorners((123.4, 80), (176.6, 104))
+             .rectFromTwoCorners((176.6, 88), (190.8, 95.4))
+             .arc((184.4, 86.6), 5, 0, 360)
+             .segment((192.8, 83.8), (202.6, 88.8))
+             .segment((200, 93.8))
+             .segment((190.2, 88.8))
+             .segment((192.8, 83.8))
+             .assemble()
+             )
+
+    return (w.workplaneFromTagged("top")
+            .transformed(offset=(15, 220, 0)).transformed(rotate=(180, 0, 50)).tag("local")
+            .placeSketch(outline).cutBlind(THICKNESS / 2)
+            .workplaneFromTagged("local").transformed(offset=(0, 0, THICKNESS / 2)).placeSketch(mount).extrude(
+        -PIN_HEIGHT)
             .workplaneFromTagged("local").placeSketch(holes).cutThruAll()
             )
+
+def render_usb_power_meter(w: cq.Workplane) -> cq.Workplane:
+    outline = (cq.Sketch()
+               .rectFromTwoCorners((100, 56), (137, 100))
+               .assemble()
+               )
+
+    mount = (cq.Sketch().push([(135, 98), (102, 98), (102, 58), (135, 58)])
+             .circle(1.9 / 2)
+             )
+
+    holes = (cq.Sketch()
+             .rectFromTwoCorners((119.5, 94.5), (129.5, 99.5))
+             .rectFromTwoCorners((60, 64), (104.5, 78))
+             .assemble()
+             )
+
+    return (w.workplaneFromTagged("top")
+            .transformed(offset=(-60 + 3, 100 + 2, 0), rotate=(180, 0, 0)).tag("local")
+            .placeSketch(outline).cutBlind(THICKNESS / 2)
+            .workplaneFromTagged("local").transformed(offset=(0, 0, THICKNESS / 2)).placeSketch(mount).extrude(
+        -PIN_HEIGHT)
+            .workplaneFromTagged("local").placeSketch(holes).cutThruAll()
+            )
+
 
 def lock_shelf() -> cq.Workplane:
     return render_lock(generic_shelf())
 
-a = lock_shelf()
 
+def firefly_shelf() -> cq.Workplane:
+    return render_firefly(generic_shelf())
+
+def usb_power_meter_shelf() -> cq.Workplane:
+    return render_usb_power_meter(generic_shelf())
+
+a = (
+    cq.Assembly()
+    .add(firefly_shelf(), loc=cq.Location((0, 0, 0)), name="firefly", color=cq.Color("green"))
+    .add(lock_shelf(), loc=cq.Location((0, 0, 30)), name="lock", color=cq.Color("green"))
+)
+
+t = usb_power_meter_shelf()
+
+#show_object(a)
