@@ -1,5 +1,5 @@
 import cadquery as cq
-from cqgridfinity import GridfinityBox
+from common import GridfinityBoxWithHoles
 from cqgridfinity import  constants
 import math
 
@@ -10,7 +10,7 @@ def gridfinity_pcb_holder(slots, spacing, length, width):
     unit_height = 1 + math.ceil(width / constants.GRHU)
     unit_width = math.ceil(total_width / constants.GRU)
     unit_length = math.ceil(length / constants.GRU)
-    box = GridfinityBox(unit_width, unit_length,  unit_height, holes=True, unsupported_holes=True).cq_obj
+    box = GridfinityBoxWithHoles(unit_width, unit_length,  unit_height).to_cq()
     box = box.faces("<Z[1]").workplane(offset=-groove_depth).rarray(spacing, 1, slots, 1).rect(pcb_thickness, length).cutBlind(width + constants.GRHU)
     h = 12
     v = h * math.sqrt(3)
