@@ -57,8 +57,8 @@ def render_bmp_board(w: cq.Workplane) -> cq.Workplane:
 
     holes = (cq.Sketch()
              .rectFromTwoCorners((177, 92), (196, 144))
-             .rectFromTwoCorners((161, 131), (172, 137))
-             .rectFromTwoCorners((158, 140), (174, 143))
+             .rectFromTwoCorners((160, 130), (173, 138))
+             .rectFromTwoCorners((157, 139), (175, 144))
              .assemble()
              )
 
