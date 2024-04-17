@@ -75,11 +75,9 @@ def render_lock(w: cq.Workplane) -> cq.Workplane:
                .rectFromTwoCorners((104.5, 54.5), (184.5, 150.5))
                .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.25)
                )
-
-    mount = (cq.Sketch().push([(107.5, 132.5), (107.5, 58.25), (151.25, 58.25), (178.5, 132.5)])
+    mount = (cq.Sketch().push([(107.5, 132.5), (107.5, 58.25), (181, 58.25), (181, 132.5)])
              .circle(2.1 / 2)
              )
-    
 
     holes = (cq.Sketch()
              .rectFromTwoCorners((108, 64.5), (118, 69))
@@ -87,9 +85,9 @@ def render_lock(w: cq.Workplane) -> cq.Workplane:
              .rectFromTwoCorners((106.5, 120), (112, 128.5))
              .rectFromTwoCorners((106, 136.5), (126, 139))
              .rectFromTwoCorners((130, 142), (140, 147.5))
-             .rectFromTwoCorners((144.5, 131.5), (170.5, 141))
              .rectFromTwoCorners((179.5, 106), (182.5, 124.5))
-             .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
+             .rectFromTwoCorners((154, 134), (181, 142))
+             .assemble()
              )
 
     return (w.workplaneFromTagged("top")
