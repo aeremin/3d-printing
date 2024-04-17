@@ -48,7 +48,7 @@ def generic_shelf() -> cq.Workplane:
 def render_bmp_board(w: cq.Workplane) -> cq.Workplane:
     outline = (cq.Sketch()
                .rectFromTwoCorners((155, 148), (206, 83))
-               .assemble().vertices().fillet(2)
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
                )
 
     mount = (cq.Sketch().push([(158, 137), (158, 94), (200, 137), (200, 94)])
@@ -73,7 +73,7 @@ def render_bmp_board(w: cq.Workplane) -> cq.Workplane:
 def render_lock(w: cq.Workplane) -> cq.Workplane:
     outline = (cq.Sketch()
                .rectFromTwoCorners((104.5, 54.5), (184.5, 150.5))
-               .assemble()
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
                )
 
     mount = (cq.Sketch().push([(107.5, 132.5), (107.5, 58.25), (151.25, 58.25), (178.5, 132.5)])
@@ -89,7 +89,7 @@ def render_lock(w: cq.Workplane) -> cq.Workplane:
              .rectFromTwoCorners((130, 142), (140, 147.5))
              .rectFromTwoCorners((144.5, 131.5), (170.5, 141))
              .rectFromTwoCorners((179.5, 106), (182.5, 124.5))
-             .assemble()
+             .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
              )
 
     return (w.workplaneFromTagged("top")
@@ -111,7 +111,7 @@ def render_firefly(w: cq.Workplane) -> cq.Workplane:
                .arc((108.8211, 101.5368), (95.2, 94.4))
                .arc((94, 92), (95.2, 89.6))
                .arc((108.8211, 82.4632), (124, 80))
-               .assemble()
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
                )
 
     mount = (cq.Sketch().push([(178.6, 101.8), (178.6, 82.2), (121.4, 82.2), (121.4, 101.8)])
@@ -120,7 +120,11 @@ def render_firefly(w: cq.Workplane) -> cq.Workplane:
 
     holes = (cq.Sketch()
              .rectFromTwoCorners((123.4, 80), (176.6, 104))
-             .rectFromTwoCorners((176.6, 88), (190.8, 95.4))
+             .rectFromTwoCorners((176.6, 88), (190.8, 97))
+             .segment((186.8, 82.9), (190, 82.2))
+             .segment((191.3, 88.1))
+             .segment((188.2, 88.8))
+             .segment((186.8, 82.9))             
              .arc((184.4, 86.6), 5, 0, 360)
              .segment((192.8, 83.8), (202.6, 88.8))
              .segment((200, 93.8))
@@ -140,7 +144,7 @@ def render_firefly(w: cq.Workplane) -> cq.Workplane:
 def render_usb_power_meter(w: cq.Workplane) -> cq.Workplane:
     outline = (cq.Sketch()
                .rectFromTwoCorners((100, 56), (137, 100))
-               .assemble()
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
                )
 
     mount = (cq.Sketch().push([(135, 98), (102, 98), (102, 58), (135, 58)])
@@ -178,6 +182,10 @@ a = (
     .add(lock_shelf(), loc=cq.Location((0, 0, 30)), name="lock", color=cq.Color("green"))
 )
 
-t = usb_power_meter_shelf()
+t = firefly_shelf()
+
+cq.exporters.export(firefly_shelf(), 'firefly_shelf.stl')
+cq.exporters.export(usb_power_meter_shelf(), 'usb_power_meter_shelf.stl')
+cq.exporters.export(lock_shelf(), 'lock_shelf.stl')
 
 #show_object(a)
