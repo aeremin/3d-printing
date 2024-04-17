@@ -48,7 +48,7 @@ def generic_shelf() -> cq.Workplane:
 def render_bmp_board(w: cq.Workplane) -> cq.Workplane:
     outline = (cq.Sketch()
                .rectFromTwoCorners((155, 148), (206, 83))
-               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.25)
                )
 
     mount = (cq.Sketch().push([(158, 137), (158, 94), (200, 137), (200, 94)])
@@ -73,7 +73,7 @@ def render_bmp_board(w: cq.Workplane) -> cq.Workplane:
 def render_lock(w: cq.Workplane) -> cq.Workplane:
     outline = (cq.Sketch()
                .rectFromTwoCorners((104.5, 54.5), (184.5, 150.5))
-               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.25)
                )
 
     mount = (cq.Sketch().push([(107.5, 132.5), (107.5, 58.25), (151.25, 58.25), (178.5, 132.5)])
@@ -111,7 +111,7 @@ def render_firefly(w: cq.Workplane) -> cq.Workplane:
                .arc((108.8211, 101.5368), (95.2, 94.4))
                .arc((94, 92), (95.2, 89.6))
                .arc((108.8211, 82.4632), (124, 80))
-               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.25)
                )
 
     mount = (cq.Sketch().push([(178.6, 101.8), (178.6, 82.2), (121.4, 82.2), (121.4, 101.8)])
@@ -144,7 +144,7 @@ def render_firefly(w: cq.Workplane) -> cq.Workplane:
 def render_usb_power_meter(w: cq.Workplane) -> cq.Workplane:
     outline = (cq.Sketch()
                .rectFromTwoCorners((100, 56), (137, 100))
-               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.2)
+               .assemble(mode="c", tag="exact_outline").wires(tag="exact_outline").offset(0.25)
                )
 
     mount = (cq.Sketch().push([(135, 98), (102, 98), (102, 58), (135, 58)])
