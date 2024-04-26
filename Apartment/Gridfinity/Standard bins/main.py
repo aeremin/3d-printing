@@ -1,7 +1,5 @@
 from cqgridfinity import *
 
-GridfinityBaseplate
-
 GridfinityBox(1, 3, 4, scoops=False, labels=False, holes=True, unsupported_holes=True).save_stl_file()
 GridfinityBox(1, 4, 5, scoops=False, labels=False, holes=True, unsupported_holes=True).save_stl_file()
 GridfinityBox(1, 4, 7, scoops=False, labels=False, holes=True, unsupported_holes=True).save_stl_file()
@@ -22,7 +20,7 @@ sizes = [
     (1, 1, 4),
     (1, 1, 5),
     (1, 1, 2),
-    (1, 3, 3),
+    (3, 1, 3),
 ]
 
 for l, w, h in sizes:
