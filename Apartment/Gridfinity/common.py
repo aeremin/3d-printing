@@ -19,7 +19,7 @@ class GridfinityBoxWithHoles(GridfinityBox):
     if solid_thickness is not None:
       solid_ratio = solid_thickness / ((height_u - 1) * constants.GRHU)
     super().__init__(length_u, width_u, height_u, holes=True, unsupported_holes=True,
-                     solid=False, solid_ratio=solid_ratio, scoops=scoops, labels=labels, no_lip=no_lip)
+                     solid=solid_ratio is not None, solid_ratio=solid_ratio, scoops=scoops, labels=labels, no_lip=no_lip)
   def to_cq(self) -> cq.Workplane:
     r: cq.Workplane = self.cq_obj
-    return r.faces("<Z[1]").workplane().tag(TOP_SURFACE_TAG).findSolid()
+    return r.faces("<Z[1]").workplane().tag(TOP_SURFACE_TAG)
