@@ -1,17 +1,17 @@
 import math
 
-from cqgridfinity import *
 import cadquery as cq
+from cqgridfinity import *
+from common import GridfinityBoxWithHoles, TOP_SURFACE_TAG
 
 diameter = 20.4
 height_u = 8
 
 slot_depth = 8
 
-box: cq.Workplane = GridfinityBox(1, 1, height_u, holes=True, unsupported_holes=True, solid=True,
-                solid_ratio=(slot_depth / ((height_u - 1) * constants.GRHU))).cq_obj
-
-box = box.faces("<Z[1]").workplane().polarArray(2 / 3 * diameter, 45, 180, 2).hole(diameter, slot_depth)
+box = GridfinityBoxWithHoles(1, 1, height_u,
+                             solid_thickness=slot_depth).to_cq().workplaneFromTagged(TOP_SURFACE_TAG).polarArray(
+  2 / 3 * diameter, 45, 180, 2).hole(diameter, slot_depth)
 
 h = 12
 v = h * math.sqrt(3)

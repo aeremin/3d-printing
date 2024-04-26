@@ -1,5 +1,5 @@
 import cadquery as cq
-from cqgridfinity import GridfinityBox
+from common import GridfinityBoxWithHoles, TOP_SURFACE_TAG
 
 usb_a_width = 12
 usb_a_height = 4.5
@@ -16,6 +16,7 @@ tolerance = 0.4
 
 max_usb_a_height = 62
 
-usb_a_box = GridfinityBox(2, 2, 12, holes=True, unsupported_holes=True, solid=True, solid_ratio=0.2).cq_obj
-usb_a_box = usb_a_box.faces("<Z[1]").workplane().rarray(1, 11, 1, 8).rect(usb_a_width + tolerance, usb_a_height + tolerance).extrude(max_usb_a_height)
+usb_a_box = (GridfinityBoxWithHoles(2, 2, 12, solid_ratio=0.2).to_cq()
+             .workplaneFromTagged(TOP_SURFACE_TAG).rarray(1, 11, 1, 8)
+             .rect(usb_a_width + tolerance, usb_a_height + tolerance).extrude(max_usb_a_height))
 cq.exporters.export(usb_a_box, 'usb_a_box.stl')

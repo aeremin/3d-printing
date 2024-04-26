@@ -1,4 +1,3 @@
-from cqgridfinity import *
 import cadquery as cq
 from common import GridfinityBoxWithHoles, TOP_SURFACE_TAG
 
