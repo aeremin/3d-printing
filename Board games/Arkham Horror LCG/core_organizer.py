@@ -77,15 +77,18 @@ def chaos_capsules_box():
           .faces(">X").workplane().pushPoints([(0, 20)]).slot2D(60, 30, 90).cutThruAll().edges("|X and >Z and (>>Y[6] or >>Y[-7])").fillet(4)
           )
 
-def damage_box():
-  bbox = cq.Workplane().box(DAMAGE_BOX_OUTER_WIDTH, DAMAGE_BOX_OUTER_LENGTH, DAMAGE_BOX_OUTER_HEIGHT)
-  d = (DAMAGE_BOX_OUTER_WIDTH - 3 * WALL_THICKNESS) / 3
-  l = DAMAGE_BOX_OUTER_LENGTH - 2 * WALL_THICKNESS
-  cutter1 = (cq.Workplane(origin=(-DAMAGE_BOX_OUTER_WIDTH / 2 + WALL_THICKNESS, 0, FLOOR_THICKNESS)).box(d, l, DAMAGE_BOX_OUTER_HEIGHT, centered=(False, True, True))
+def two_section_box(outer_width, outer_length, outer_height):
+  bbox = cq.Workplane().box(outer_width, outer_length, outer_height)
+  d = (outer_width - 3 * WALL_THICKNESS) / 3
+  l = outer_length - 2 * WALL_THICKNESS
+  cutter1 = (cq.Workplane(origin=(-outer_width / 2 + WALL_THICKNESS, 0, FLOOR_THICKNESS)).box(d, l, DAMAGE_BOX_OUTER_HEIGHT, centered=(False, True, True))
             .faces("<Z").fillet(10).edges("|Z").fillet(2))
-  cutter2 = (cq.Workplane(origin=(- DAMAGE_BOX_OUTER_WIDTH / 2 + d + 2 * WALL_THICKNESS, 0, FLOOR_THICKNESS)).box(2 * d, l, DAMAGE_BOX_OUTER_HEIGHT, centered=(False, True, True))
+  cutter2 = (cq.Workplane(origin=(- outer_width / 2 + d + 2 * WALL_THICKNESS, 0, FLOOR_THICKNESS)).box(2 * d, l, DAMAGE_BOX_OUTER_HEIGHT, centered=(False, True, True))
              .faces("<Z").fillet(10).edges("|Z").fillet(2))
   return bbox.edges("|Z").fillet(4).cut(cutter1).cut(cutter2)
+
+def damage_box():
+  return two_section_box(DAMAGE_BOX_OUTER_WIDTH, DAMAGE_BOX_OUTER_LENGTH, DAMAGE_BOX_OUTER_HEIGHT)
 
 def resources_box():
   bbox = cq.Workplane().box(RESOURCES_BOX_OUTER_WIDTH, RESOURCES_BOX_OUTER_LENGTH, RESOURCES_BOX_OUTER_HEIGHT)
