@@ -4,7 +4,7 @@ import cadquery as cq
 
 BOX_LENGTH = 282
 BOX_WIDTH = 242
-BOX_HEIGHT = 75
+BOX_HEIGHT = 70
 
 CHAOS_TOKEN_DIAMETER = 25 + 0.2
 CHAOS_TOKEN_THICKNESS = 2.1 + 0.3
@@ -29,6 +29,10 @@ CAPSULES_BOX_OUTER_WIDTH = STANDEES_BOX_OUTER_WIDTH
 CAPSULES_BOX_OUTER_LENGTH = CARDS_BOX_OUTER_LENGTH - STANDEES_BOX_OUTER_LENGTH
 CAPSULES_BOX_OUTER_HEIGHT = math.ceil(CHAOS_TOKEN_CAPSULE_DIAMETER) + FLOOR_THICKNESS
 
+DAMAGE_BOX_OUTER_WIDTH = CAPSULES_BOX_OUTER_WIDTH
+DAMAGE_BOX_OUTER_LENGTH = CAPSULES_BOX_OUTER_LENGTH
+DAMAGE_BOX_OUTER_HEIGHT = (BOX_HEIGHT - CAPSULES_BOX_OUTER_HEIGHT) / 2
+
 print("--- Stats ---")
 print(f"Box length gap: {BOX_LENGTH - 2 * CARDS_BOX_OUTER_WIDTH - STANDEES_BOX_OUTER_WIDTH}")
 print(f"Box width gap: {BOX_WIDTH - 2 * CARDS_BOX_OUTER_LENGTH}")
@@ -50,6 +54,17 @@ def chaos_capsules_box():
           .faces(">X").workplane().pushPoints([(0, 20)]).slot2D(60, 30, 90).cutThruAll().edges("|X and >Z and (>>Y[6] or >>Y[-7])").fillet(4)
           )
 
+def damage_box():
+  bbox = cq.Workplane().box(DAMAGE_BOX_OUTER_WIDTH, DAMAGE_BOX_OUTER_LENGTH, DAMAGE_BOX_OUTER_HEIGHT)
+  d = (DAMAGE_BOX_OUTER_WIDTH - 3 * WALL_THICKNESS) / 3
+  l = DAMAGE_BOX_OUTER_LENGTH - 2 * WALL_THICKNESS
+  cutter1 = (cq.Workplane(origin=(-DAMAGE_BOX_OUTER_WIDTH / 2 + WALL_THICKNESS, 0, FLOOR_THICKNESS)).box(d, l, DAMAGE_BOX_OUTER_HEIGHT, centered=(False, True, True))
+            .faces("<Z").fillet(10).edges("|Z").fillet(2))
+  cutter2 = (cq.Workplane(origin=(- DAMAGE_BOX_OUTER_WIDTH / 2 + d + 2 * WALL_THICKNESS, 0, FLOOR_THICKNESS)).box(2 * d, l, DAMAGE_BOX_OUTER_HEIGHT, centered=(False, True, True))
+             .faces("<Z").fillet(10).edges("|Z").fillet(2))
+  return bbox.edges("|Z").fillet(4).cut(cutter1).cut(cutter2)
+
 
 cq.exporters.export(standees_box(), 'standees_box.stl')
 cq.exporters.export(chaos_capsules_box(), 'chaos_capsules_box.stl')
+cq.exporters.export(damage_box(), 'damage_box.stl')
