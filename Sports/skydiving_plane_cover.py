@@ -1,7 +1,7 @@
 import cadquery as cq
 
 METAL_HOLE_DIAMETER = 4.8 - 0.2
-ROD_THICKNESS = 2.9 + 0.2
+ROD_THICKNESS = 2.9 + 0.4
 OUTER_DIAMETER = 8
 LENGTH = 254 / (10 + 10)
 
