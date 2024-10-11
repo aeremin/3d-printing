@@ -31,3 +31,13 @@ cutter_led = cq.Workplane().pushPoints([(82, -wall_thickness)]).box(6, 7, 4, cen
 upper = upper.cut(cutter_usb).cut(cutter_led)
 
 cq.exporters.export(upper, 'upper.stl')
+
+cards_box_dimensions = (56, 14, False)
+cards_box_height = 40
+
+cards_box = (cq.Workplane().rect(*cards_box_dimensions).offset2D(wall_thickness).extrude(cards_box_height)
+        .faces("-Z").workplane(offset=1, invert=True).rect(*cards_box_dimensions).extrude(cards_box_height, combine="cut")
+        .faces("<Y").workplane(centerOption="CenterOfMass").pushPoints([(0, 12)]).slot2D(1.1 * cards_box_height, cards_box_dimensions[0] / 2, angle=90).cutBlind(-wall_thickness)
+)
+
+cq.exporters.export(cards_box, 'cards_box.stl')
