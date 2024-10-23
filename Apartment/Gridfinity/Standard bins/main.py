@@ -8,6 +8,8 @@ save_deterministic(GridfinityBox(1, 3, 4, scoops=False, labels=False, holes=True
 save_deterministic(GridfinityBox(1, 4, 5, scoops=False, labels=False, holes=True, unsupported_holes=True))
 save_deterministic(GridfinityBox(1, 4, 7, scoops=False, labels=False, holes=True, unsupported_holes=True))
 save_deterministic(GridfinityBox(1, 1, 2, length_div=1, scoops=True, labels=True, holes=True, unsupported_holes=True))
+save_deterministic(GridfinityBox(1, 1, 4, length_div=1, scoops=True, labels=True, holes=True, unsupported_holes=True))
+save_deterministic(GridfinityBox(1, 1, 2, length_div=2, scoops=True, labels=True, holes=True, unsupported_holes=True))
 save_deterministic(GridfinityBox(2, 6, 7, holes=True, unsupported_holes=True))
 save_deterministic(GridfinityBox(2, 2, 8, holes=True, unsupported_holes=True))
 save_deterministic(GridfinityBox(1, 4, 9, holes=True, unsupported_holes=True))
