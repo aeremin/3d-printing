@@ -55,3 +55,5 @@ cq.exporters.export(roll_holder(46, 29, [True, True, True, True, False, False]),
 cq.exporters.export(roll_holder(81, 50, [False, False, True, False, False, False]), 'dk_22223.stl')
 cq.exporters.export(roll_holder(61, 62, [False, True, False, True, False, False]), 'dk_22205.stl')
 cq.exporters.export(roll_holder(48, 62, [True, True, True, False, False, False]), 'black_red_sample.stl')
+cq.exporters.export(roll_holder(82, 28, [False, True, False, True, True, False]), 'dk_22210.stl')
+cq.exporters.export(roll_holder(82, 28, [False, False, True, False, True, False]), 'dk_22214.stl')
