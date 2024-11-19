@@ -1,36 +1,46 @@
 import cadquery as cq
 
-board_dimensions = (102, 54, False)
-floor_thickness = 3
+board_width = 50
+board_dimensions = (board_width, 77, False)
+floor_thickness = 2
 wall_thickness = 1.2
-inside_height = 13
-
+inside_height = 7
+holes = [(board_width / 2, 35), (board_width / 2, 35 + 23)]
+hole_diameter = 2.4
+beeper_center = (board_width / 2 + 19.25, 35 - 6.5)
 
 lower = (cq.Workplane().rect(*board_dimensions).offset2D(wall_thickness).extrude(floor_thickness + inside_height)
          .faces("-Z").workplane(offset=floor_thickness, invert=True).tag("bottom").rect(*board_dimensions).extrude(inside_height, combine="cut")
-         .workplaneFromTagged("bottom").pushPoints([(66, 9), (15, 51)]).circle(1.5).extrude(inside_height)
+         .workplaneFromTagged("bottom").pushPoints(holes).circle(hole_diameter / 2).extrude(inside_height - 1)
+         .workplaneFromTagged("bottom").pushPoints([beeper_center]).slot2D(12, 3, 90).cutBlind(-1)
          )
 
-cutter_beeper = cq.Workplane().pushPoints([(25, board_dimensions[1])]).box(13, wall_thickness, floor_thickness + inside_height, centered=False)
-cutter_usb = cq.Workplane(origin=(0, 0, floor_thickness + inside_height - 4)).pushPoints([(83, -wall_thickness)]).box(8, wall_thickness, 4, centered=False)
+cutter_usb = cq.Workplane(origin=(0, 0, floor_thickness)).pushPoints([(-wall_thickness, 7)]).box(wall_thickness, 12, inside_height, centered=False)
 
-lower = lower.cut(cutter_beeper).cut(cutter_usb)
+lower = lower.cut(cutter_usb)
 
 cq.exporters.export(lower, 'lower.stl')
 
-lip_height = 2.0
-ceiling_thickness = 0.4
+ceiling_thickness = 1
+board_thickness = 2
 
-upper = (cq.Workplane().rect(*board_dimensions).offset2D(2 * wall_thickness).extrude(ceiling_thickness + lip_height)
-        .faces("-Z").workplane(offset=ceiling_thickness, invert=True).tag("top").rect(*board_dimensions).offset2D(wall_thickness).extrude(lip_height, combine="cut")
+actual_board_width = 41
+leftover_space = (board_width - actual_board_width) / 2 - 0.2
+
+upper = (cq.Workplane().rect(*board_dimensions).extrude(ceiling_thickness)
+        .faces("+Z").workplane().tag("bottom")
+         .pushPoints(holes).circle(hole_diameter / 2 + 0.1).pushPoints(holes).circle(3.5).extrude(inside_height - ceiling_thickness - board_thickness)
+         .workplaneFromTagged("bottom").pushPoints([(leftover_space / 2, holes[1][1]), (board_width - leftover_space / 2, holes[1][1])]).rect(leftover_space, 34)
+         .pushPoints([(board_width, 0)]).rect(-20, 6, centered=False).extrude(inside_height - ceiling_thickness)
 )
 
-cutter_usb = cq.Workplane().pushPoints([(9, - 2 * wall_thickness)]).box(13, wall_thickness + 2 , 4, centered=False)
-cutter_led = cq.Workplane().pushPoints([(82, -wall_thickness)]).box(6, 7, 4, centered=False)
+cutter_beeper = cq.Workplane().pushPoints([(board_width - beeper_center[0], beeper_center[1])]).cylinder(15, 6)
 
-upper = upper.cut(cutter_usb).cut(cutter_led)
+upper = upper.cut(cutter_beeper)
 
 cq.exporters.export(upper, 'upper.stl')
+
+# Box for cards
 
 cards_box_dimensions = (56, 14, False)
 cards_box_height = 40
