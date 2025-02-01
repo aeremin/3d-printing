@@ -2,8 +2,8 @@ import cadquery as cq
 from Apartment.Skadis.hook import skadis_hook
 
 pocket_depth = 20
-pocket_width = 60
-pocket_height = 50
+pocket_width = 84
+pocket_height = 60
 wall_thickness = 2
 
 holder = (

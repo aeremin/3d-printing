@@ -21,4 +21,4 @@ def skadis_hook():
   l.add_point(-thickness, 0)
   l.add_point(0, rear_downtick_length)
 
-  return cq.Workplane("XZ").polyline(l.points).close().extrude(thickness).edges().fillet(0.5).translate((0, -thickness / 2, 0))
+  return cq.Workplane("XZ").polyline(l.points).close().extrude(thickness).edges().fillet(0.5).translate((0, thickness / 2, 0))
