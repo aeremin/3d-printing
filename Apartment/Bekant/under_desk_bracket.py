@@ -18,6 +18,9 @@ def kvm_bracket():
 def printer_powerbrick_bracket():
     return bracket_for_box(box_width=70, box_height=35, ears_length=24)
 
+def screen_FO32U2P_powerbrick_bracket():
+    return bracket_for_box(box_width=82, box_height=26, ears_length=24)
 
 cq.exporters.export(kvm_bracket(), 'kvm_bracket.stl')
 cq.exporters.export(printer_powerbrick_bracket(), 'printer_powerbrick_bracket.stl')
+cq.exporters.export(screen_FO32U2P_powerbrick_bracket(), 'screen_FO32U2P_powerbrick_bracket.stl')
